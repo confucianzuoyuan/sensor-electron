@@ -1,16 +1,16 @@
 const { app, BrowserWindow } = require('electron')
-const path = require('path')
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 768,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      nodeIntegration: true,
+      contextIsolation: false,
     }
   })
 
-  win.webContents.openDevTools()
+  win.webContents.openDevTools();
 
   win.loadFile('index.html')
 }
@@ -30,3 +30,4 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+

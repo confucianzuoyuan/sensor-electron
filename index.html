@@ -1,16 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <meta charset="utf-8">
+    <title>Electron UDP</title>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-title" content=""/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background: white;">
-    <h1>Hello World!</h1>
-    <p>
-        We are using Node.js <span id="node-version"></span>,
-        Chromium <span id="chrome-version"></span>,
-        and Electron <span id="electron-version"></span>.
-    </p>
+<body>
+    <div class = "container" id="login-panel">
+        <h1>传感器检测系统</h1>
+        <div class = "form-group">
+           <label for = "Name">用户名</label>
+           <input type = "text" name = "Name" value = "" id = "name" 
+              placeholder = "Name" class = "form-control" required>
+        </div>
+        
+        <div class = "form-group">
+           <label for = "Email">密码</label>
+           <input type = "email" name = "Email" value = "" id = "pwd" 
+              placeholder = "Password" class = "form-control" required>
+        </div>
+        
+        <div class = "form-group">
+           <button class = "btn btn-primary" id = "login">登录</button>
+        </div>
+    </div>
+    <div id="chart-panel">
+        <div class="Row" style="position: relative; top: 0px;">
+            <div class="Column" style="position: relative;">
+                <div class="btn btn-success btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container1-ok-button">OK</div>
+                <div class="btn btn-danger btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container1-ng-button">NG</div>
+                <div class="input-group input-group-sm" style="position: absolute; top: 0px; right: 40px; z-index: 2; width: 250px;">
+                    <span class="input-group-text">上限</span>
+                    <input type="text" aria-label="lower-bound" class="form-control">
+                    <span class="input-group-text">下限</span>
+                    <input type="text" aria-label="higher-bound" class="form-control">
+                    <span class="btn btn-primary btn-sm" id="container1-edit">编辑</span>
+                    <span class="btn btn-warning btn-sm" id="container1-confirm">确认</span>
+                </div>
+                <div id="container1" style="height: 300px;"></div>
+            </div>
+            <div class="Column" style="position: relative;">
+                <div class="btn btn-success btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container2-ok-button">OK</div>
+                <div class="btn btn-danger btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container2-ng-button">NG</div>
+                <div class="input-group input-group-sm" style="position: absolute; top: 0px; right: 40px; z-index: 2; width: 250px;">
+                    <span class="input-group-text">上限</span>
+                    <input type="text" aria-label="lower-bound" class="form-control">
+                    <span class="input-group-text">下限</span>
+                    <input type="text" aria-label="higher-bound" class="form-control">
+                    <span class="btn btn-primary btn-sm" id="container2-edit">编辑</span>
+                    <span class="btn btn-warning btn-sm" id="container2-confirm">确认</span>
+                </div>
+                <div id="container2" style="height: 300px"></div>
+            </div>
+            <div class="Column" style="position: relative;">
+                <div class="btn btn-success btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container3-ok-button">OK</div>
+                <div class="btn btn-danger btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container3-ng-button">NG</div>
+                <div class="input-group input-group-sm" style="position: absolute; top: 0px; right: 40px; z-index: 2; width: 250px;">
+                    <span class="input-group-text">上限</span>
+                    <input type="text" aria-label="lower-bound" class="form-control">
+                    <span class="input-group-text">下限</span>
+                    <input type="text" aria-label="higher-bound" class="form-control">
+                    <span class="btn btn-primary btn-sm" id="container3-edit">编辑</span>
+                    <span class="btn btn-warning btn-sm" id="container3-confirm">确认</span>
+                </div>
+                <div id="container3" style="height: 300px"></div>
+            </div>
+        </div>
+        <div class="Row" style="position: absolute; top: 350px; margin-top: 10px;">
+            <div class="Column" style="position: relative;">
+                <div class="btn btn-success btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container4-ok-button">OK</div>
+                <div class="btn btn-danger btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container4-ng-button">NG</div>
+                <div class="input-group input-group-sm" style="position: absolute; top: 0px; right: 40px; z-index: 2; width: 250px;">
+                    <span class="input-group-text">上限</span>
+                    <input type="text" aria-label="lower-bound" class="form-control">
+                    <span class="input-group-text">下限</span>
+                    <input type="text" aria-label="higher-bound" class="form-control">
+                    <div class="btn btn-primary btn-sm" id="container4-edit">编辑</div>
+                    <div class="btn btn-warning btn-sm" id="container4-confirm">确认</div>
+                </div>
+                <div id="container4" style="height: 300px"></div>
+            </div>
+            <div class="Column" style="position: relative;">
+                <div class="btn btn-success btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container5-ok-button">OK</div>
+                <div class="btn btn-danger btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container5-ng-button">NG</div>
+                <div class="input-group input-group-sm" style="position: absolute; top: 0px; right: 40px; z-index: 2; width: 250px;">
+                    <span class="input-group-text">上限</span>
+                    <input type="text" aria-label="lower-bound" class="form-control">
+                    <span class="input-group-text">下限</span>
+                    <input type="text" aria-label="higher-bound" class="form-control">
+                    <span class="btn btn-primary btn-sm" id="container5-edit">编辑</span>
+                    <span class="btn btn-warning btn-sm" id="container5-confirm">确认</span>
+                </div>
+                <div id="container5" style="height: 300px"></div>
+            </div>
+            <div class="Column" style="position: relative;">
+                <div class="btn btn-success btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container6-ok-button">OK</div>
+                <div class="btn btn-danger btn-sm" style="position: absolute; top: 0px; right: 0%; z-index: 2;" id="container6-ng-button">NG</div>
+                <div class="input-group input-group-sm" style="position: absolute; top: 0px; right: 40px; z-index: 2; width: 250px;">
+                    <span class="input-group-text">上限</span>
+                    <input type="text" aria-label="lower-bound" class="form-control">
+                    <span class="input-group-text">下限</span>
+                    <input type="text" aria-label="higher-bound" class="form-control">
+                    <span class="btn btn-primary btn-sm" id="container6-edit">编辑</span>
+                    <span class="btn btn-warning btn-sm" id="container6-confirm">确认</span>
+                </div>
+                <div id="container6" style="height: 300px"></div>
+            </div>
+        </div>
+        <div class="form-group" style="left: 40%; position: absolute; top: 700px; height: 20px;">
+            <button class="btn btn-primary" id="start">开始监测</button>
+            <button class="btn btn-primary" id="stop">停止监测</button>
+            <button class="btn btn-primary" id="history-data">历史数据</button>
+            <button class="btn btn-success" id="ok-button">OK</button>
+            <button class="btn btn-danger" id="ng-button">NG</button>
+        </div>
+    </div>
+    <script src="vendor/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>const app = new App();</script>
 </body>
 </html>
