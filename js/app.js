@@ -202,37 +202,37 @@ class App {
         this.ng_element = document.getElementById('ng-button');
         this.ng_element.style.display = 'none';
         this.ok_element = document.getElementById('ok-button');
-        this.ok_element.style.display = 'block';
+        this.ok_element.style.display = 'initial';
 
         this.container1_ng_element = document.getElementById('container1-ng-button');
         this.container1_ng_element.style.display = 'none';
         this.container1_ok_element = document.getElementById('container1-ok-button');
-        this.container1_ok_element.style.display = 'block';
+        this.container1_ok_element.style.display = 'initial';
 
         this.container2_ng_element = document.getElementById('container2-ng-button');
         this.container2_ng_element.style.display = 'none';
         this.container2_ok_element = document.getElementById('container2-ok-button');
-        this.container2_ok_element.style.display = 'block';
+        this.container2_ok_element.style.display = 'initial';
 
         this.container3_ng_element = document.getElementById('container3-ng-button');
         this.container3_ng_element.style.display = 'none';
         this.container3_ok_element = document.getElementById('container3-ok-button');
-        this.container3_ok_element.style.display = 'block';
+        this.container3_ok_element.style.display = 'initial';
 
         this.container4_ng_element = document.getElementById('container4-ng-button');
         this.container4_ng_element.style.display = 'none';
         this.container4_ok_element = document.getElementById('container4-ok-button');
-        this.container4_ok_element.style.display = 'block';
+        this.container4_ok_element.style.display = 'initial';
 
         this.container5_ng_element = document.getElementById('container5-ng-button');
         this.container5_ng_element.style.display = 'none';
         this.container5_ok_element = document.getElementById('container5-ok-button');
-        this.container5_ok_element.style.display = 'block';
+        this.container5_ok_element.style.display = 'initial';
 
         this.container6_ng_element = document.getElementById('container6-ng-button');
         this.container6_ng_element.style.display = 'none';
         this.container6_ok_element = document.getElementById('container6-ok-button');
-        this.container6_ok_element.style.display = 'block';
+        this.container6_ok_element.style.display = 'initial';
 
         this.container1_confirm_element = document.getElementById('container1-confirm');
         this.container1_confirm_element.style.display = 'none';
@@ -260,79 +260,79 @@ class App {
         this.container6_edit_element = document.getElementById('container6-edit');
 
         this.container1_edit_element.addEventListener('click', () => {
-            this.container1_confirm_element.style.display = 'block';
+            this.container1_confirm_element.style.display = 'initial';
             this.container1_edit_element.style.display = 'none';
             this.container1_high_element.readOnly = false;
             this.container1_low_element.readOnly = false;
         });
         this.container1_confirm_element.addEventListener('click', () => {
             this.container1_confirm_element.style.display = 'none';
-            this.container1_edit_element.style.display = 'block';
+            this.container1_edit_element.style.display = 'initial';
             this.container1_high_element.readOnly = true;
             this.container1_low_element.readOnly = true;
         });
 
         this.container2_edit_element.addEventListener('click', () => {
-            this.container2_confirm_element.style.display = 'block';
+            this.container2_confirm_element.style.display = 'initial';
             this.container2_edit_element.style.display = 'none';
             this.container2_high_element.readOnly = false;
             this.container2_low_element.readOnly = false;
         });
         this.container2_confirm_element.addEventListener('click', () => {
             this.container2_confirm_element.style.display = 'none';
-            this.container2_edit_element.style.display = 'block';
+            this.container2_edit_element.style.display = 'initial';
             this.container2_high_element.readOnly = true;
             this.container2_low_element.readOnly = true;
         });
 
         this.container3_edit_element.addEventListener('click', () => {
-            this.container3_confirm_element.style.display = 'block';
+            this.container3_confirm_element.style.display = 'initial';
             this.container3_edit_element.style.display = 'none';
             this.container3_high_element.readOnly = false;
             this.container3_low_element.readOnly = false;
         });
         this.container3_confirm_element.addEventListener('click', () => {
             this.container3_confirm_element.style.display = 'none';
-            this.container3_edit_element.style.display = 'block';
+            this.container3_edit_element.style.display = 'initial';
             this.container3_high_element.readOnly = true;
             this.container3_low_element.readOnly = true;
         });
 
         this.container4_edit_element.addEventListener('click', () => {
-            this.container4_confirm_element.style.display = 'block';
+            this.container4_confirm_element.style.display = 'initial';
             this.container4_edit_element.style.display = 'none';
             this.container4_high_element.readOnly = false;
             this.container4_low_element.readOnly = false;
         });
         this.container4_confirm_element.addEventListener('click', () => {
             this.container4_confirm_element.style.display = 'none';
-            this.container4_edit_element.style.display = 'block';
+            this.container4_edit_element.style.display = 'initial';
             this.container4_high_element.readOnly = true;
             this.container4_low_element.readOnly = true;
         });
 
         this.container5_edit_element.addEventListener('click', () => {
-            this.container5_confirm_element.style.display = 'block';
+            this.container5_confirm_element.style.display = 'initial';
             this.container5_edit_element.style.display = 'none';
             this.container5_high_element.readOnly = false;
             this.container5_low_element.readOnly = false;
         });
         this.container5_confirm_element.addEventListener('click', () => {
             this.container5_confirm_element.style.display = 'none';
-            this.container5_edit_element.style.display = 'block';
+            this.container5_edit_element.style.display = 'initial';
             this.container5_high_element.readOnly = true;
             this.container5_low_element.readOnly = true;
         });
 
         this.container6_edit_element.addEventListener('click', () => {
-            this.container6_confirm_element.style.display = 'block';
+            this.container6_confirm_element.style.display = 'initial';
             this.container6_edit_element.style.display = 'none';
             this.container6_high_element.readOnly = false;
             this.container6_low_element.readOnly = false;
         });
         this.container6_confirm_element.addEventListener('click', () => {
             this.container6_confirm_element.style.display = 'none';
-            this.container6_edit_element.style.display = 'block';
+            this.container6_edit_element.style.display = 'initial';
             this.container6_high_element.readOnly = true;
             this.container6_low_element.readOnly = true;
         });
@@ -407,9 +407,9 @@ class App {
                     const low1 = this.container1_low_element.value;
                     if (container1_data > high1 || container1_data < low1) {
                         this.ok_element.style.display = "none";
-                        this.ng_element.style.display = "display";
+                        this.ng_element.style.display = "initial";
                         this.container1_ok_element.style.display = "none";
-                        this.container1_ng_element.style.display = "block";
+                        this.container1_ng_element.style.display = "initial";
                     }
 
                     let container2_data = arr.slice(12, 16).reverse().buffer;
@@ -421,9 +421,9 @@ class App {
                     const low2 = this.container2_low_element.value;
                     if (container2_data > high2 || container2_data < low2) {
                         this.ok_element.style.display = "none";
-                        this.ng_element.style.display = "display";
+                        this.ng_element.style.display = "initial";
                         this.container2_ok_element.style.display = "none";
-                        this.container2_ng_element.style.display = "block";
+                        this.container2_ng_element.style.display = "initial";
                     }
 
                     let container3_data = arr.slice(16, 20).reverse().buffer;
@@ -435,9 +435,9 @@ class App {
                     const low3 = this.container3_low_element.value;
                     if (container3_data > high3 || container3_data < low3) {
                         this.ok_element.style.display = "none";
-                        this.ng_element.style.display = "display";
+                        this.ng_element.style.display = "initial";
                         this.container3_ok_element.style.display = "none";
-                        this.container3_ng_element.style.display = "block";
+                        this.container3_ng_element.style.display = "initial";
                     }
 
                     let container4_data = arr.slice(20, 24).reverse().buffer;
@@ -449,9 +449,9 @@ class App {
                     const low4 = this.container4_low_element.value;
                     if (container4_data > high4 || container4_data < low4) {
                         this.ok_element.style.display = "none";
-                        this.ng_element.style.display = "display";
+                        this.ng_element.style.display = "initial";
                         this.container4_ok_element.style.display = "none";
-                        this.container4_ng_element.style.display = "block";
+                        this.container4_ng_element.style.display = "initial";
                     }
 
                     let container5_data = arr.slice(24, 28).reverse().buffer;
@@ -463,9 +463,9 @@ class App {
                     const low5 = this.container5_low_element.value;
                     if (container5_data > high5 || container5_data < low5) {
                         this.ok_element.style.display = "none";
-                        this.ng_element.style.display = "display";
+                        this.ng_element.style.display = "initial";
                         this.container5_ok_element.style.display = "none";
-                        this.container5_ng_element.style.display = "block";
+                        this.container5_ng_element.style.display = "initial";
                     }
 
                     let container6_data = arr.slice(28, 32).reverse().buffer;
@@ -477,9 +477,9 @@ class App {
                     const low6 = this.container6_low_element.value;
                     if (container6_data > high6 || container6_data < low6) {
                         this.ok_element.style.display = "none";
-                        this.ng_element.style.display = "display";
+                        this.ng_element.style.display = "initial";
                         this.container6_ok_element.style.display = "none";
-                        this.container6_ng_element.style.display = "block";
+                        this.container6_ng_element.style.display = "initial";
                     }
 
                     chart1.series[0].addPoint(container1_data, true, true);
@@ -508,7 +508,7 @@ class App {
             const pwd = document.getElementById('pwd').value;
             if (name === 'liujiean' && pwd === 'liujiean') {
                 document.getElementById('login-panel').remove();
-                document.getElementById('chart-panel').style.display = 'block';
+                document.getElementById('chart-panel').style.display = 'initial';
             } else {
                 window.alert('用户名或者密码错误！');
             }
