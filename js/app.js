@@ -251,6 +251,11 @@ class App {
         this.container6_edit_element = document.getElementById('container6-edit');
 
         this.container1_data_element = document.getElementById('container1-data');
+        this.container2_data_element = document.getElementById('container2-data');
+        this.container3_data_element = document.getElementById('container3-data');
+        this.container4_data_element = document.getElementById('container4-data');
+        this.container5_data_element = document.getElementById('container5-data');
+        this.container6_data_element = document.getElementById('container6-data');
 
         this.start_element.addEventListener('click', (event) => {
             event.preventDefault();
@@ -263,20 +268,44 @@ class App {
                 console.log('UDP Server listening on ' + address.address + ":" + address.port);
             });
             socket.on('message', (message, remote) => {
-                if (count === 0) {
-                    window.alert('成功接收数据');
+                if (count % 100 === 0) {
                     count += 1;
+                    let arr = Uint8Array.from(message);
+
+                    let container1_data = arr.slice(8, 12).reverse().buffer;
+                    let dataView = new DataView(container1_data);
+                    container1_data = dataView.getFloat32();
+                    this.container1_data_element.value = container1_data;
+
+                    let container2_data = arr.slice(12, 16).reverse().buffer;
+                    dataView = new DataView(container2_data);
+                    container2_data = dataView.getFloat32();
+                    this.container2_data_element.value = container2_data;
+
+                    let container3_data = arr.slice(16, 20).reverse().buffer;
+                    dataView = new DataView(container3_data);
+                    container3_data = dataView.getFloat32();
+                    this.container3_data_element.value = container3_data;
+
+                    let container4_data = arr.slice(20, 24).reverse().buffer;
+                    dataView = new DataView(container4_data);
+                    container4_data = dataView.getFloat32();
+                    this.container4_data_element.value = container4_data;
+
+                    let container5_data = arr.slice(24, 28).reverse().buffer;
+                    dataView = new DataView(container5_data);
+                    container5_data = dataView.getFloat32();
+                    this.container5_data_element.value = container5_data;
+
+                    let container6_data = arr.slice(28, 32).reverse().buffer;
+                    dataView = new DataView(container6_data);
+                    container6_data = dataView.getFloat32();
+                    this.container6_data_element.value = container6_data;
                 }
-                let arr = Uint8Array.from(message);
-                let container1_data = arr.slice(8, 12).reverse();
-                let buffer = Buffer.from(contain1_data);
-                container1_data = buffer.readUInt32BE(0);
-                this.container1_data_element.value = container1_data;
             });
-            socket.bind(10000, '0.0.0.0');
-            socket.send(message, 502, '192.168.0.108', function(err, bytes) {
+            socket.bind(20000, '0.0.0.0');
+            socket.send(message, 502, '192.168.0.200', function(err, bytes) {
                 if (err) throw err;
-                console.log('UDP message sent to ' + '127.0.0.1' + ':' + 33333);
             });
         })
 
