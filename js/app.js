@@ -35,7 +35,7 @@ class App {
                 }
             },
             series: [{
-                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9]
+                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
         const chart2 = Highcharts.chart({
@@ -65,7 +65,7 @@ class App {
                 }
             },
             series: [{
-                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9]
+                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
 
@@ -96,7 +96,7 @@ class App {
                 }
             },
             series: [{
-                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9]
+                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
 
@@ -127,7 +127,7 @@ class App {
                 }
             },
             series: [{
-                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9]
+                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
 
@@ -158,7 +158,7 @@ class App {
                 }
             },
             series: [{
-                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9]
+                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
 
@@ -189,7 +189,7 @@ class App {
                 }
             },
             series: [{
-                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9]
+                data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
 
@@ -301,6 +301,19 @@ class App {
                     dataView = new DataView(container6_data);
                     container6_data = dataView.getFloat32();
                     this.container6_data_element.value = container6_data;
+
+                    chart1.series[0].addPoint(container1_data, true, true);
+                    chart1.redraw();
+                    chart2.series[0].addPoint(container2_data, true, true);
+                    chart2.redraw();
+                    chart3.series[0].addPoint(container3_data, true, true);
+                    chart3.redraw();
+                    chart4.series[0].addPoint(container4_data, true, true);
+                    chart4.redraw();
+                    chart5.series[0].addPoint(container5_data, true, true);
+                    chart5.redraw();
+                    chart6.series[0].addPoint(container6_data, true, true);
+                    chart6.redraw();
                 }
             });
             socket.bind(20000, '0.0.0.0');
