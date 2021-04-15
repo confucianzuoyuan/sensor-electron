@@ -1,5 +1,6 @@
 const Dgram = require('dgram');
 const Highcharts = require('highcharts');
+const fs = require('fs');
 
 /**
  * Main application.
@@ -8,29 +9,28 @@ class App {
 
     constructor(){
 
+        let ifStop = false;
+
+        let history_data = [];
+
         const chart1 = Highcharts.chart({
             chart: {
                 type: 'line',
                 renderTo: 'container1'
             },
+            xAxis: {
+                categories: [1,2,3,4,5,6,7,8,9,10]
+            },
             credits: {
                 enabled: false
             },
-            title: {
-                text: 'FX',
-                align: 'left'
-            },
-
             yAxis: {
                 title: {
-                    text: 'Power'
+                    text: 'FX(N)'
                 }
             },
             plotOptions: {
                 line: {
-                    dataLabels: {
-                        enabled: true
-                    },
                     enableMouseTracking: false
                 }
             },
@@ -43,24 +43,19 @@ class App {
                 type: 'line',
                 renderTo: 'container2'
             },
+            xAxis: {
+                categories: [1,2,3,4,5,6,7,8,9,10]
+            },
             credits: {
                 enabled: false
             },
-            title: {
-                text: 'FY',
-                align: 'left'
-            },
-
             yAxis: {
                 title: {
-                    text: 'Power'
+                    text: 'FY(N)'
                 }
             },
             plotOptions: {
                 line: {
-                    dataLabels: {
-                        enabled: true
-                    },
                     enableMouseTracking: false
                 }
             },
@@ -74,24 +69,19 @@ class App {
                 type: 'line',
                 renderTo: 'container3'
             },
+            xAxis: {
+                categories: [1,2,3,4,5,6,7,8,9,10]
+            },
             credits: {
                 enabled: false
             },
-            title: {
-                text: 'FZ',
-                align: 'left'
-            },
-
             yAxis: {
                 title: {
-                    text: 'Power'
+                    text: 'FZ(N)'
                 }
             },
             plotOptions: {
                 line: {
-                    dataLabels: {
-                        enabled: true
-                    },
                     enableMouseTracking: false
                 }
             },
@@ -105,24 +95,19 @@ class App {
                 type: 'line',
                 renderTo: 'container4'
             },
+            xAxis: {
+                categories: [1,2,3,4,5,6,7,8,9,10]
+            },
             credits: {
                 enabled: false
             },
-            title: {
-                text: 'MX',
-                align: 'left'
-            },
-
             yAxis: {
                 title: {
-                    text: 'Power'
+                    text: 'MX(N.m)'
                 }
             },
             plotOptions: {
                 line: {
-                    dataLabels: {
-                        enabled: true
-                    },
                     enableMouseTracking: false
                 }
             },
@@ -136,24 +121,19 @@ class App {
                 type: 'line',
                 renderTo: 'container5'
             },
+            xAxis: {
+                categories: [1,2,3,4,5,6,7,8,9,10]
+            },
             credits: {
                 enabled: false
             },
-            title: {
-                text: 'MY',
-                align: 'left'
-            },
-
             yAxis: {
                 title: {
-                    text: 'Power'
+                    text: 'MY(N.m)'
                 }
             },
             plotOptions: {
                 line: {
-                    dataLabels: {
-                        enabled: true
-                    },
                     enableMouseTracking: false
                 }
             },
@@ -167,24 +147,19 @@ class App {
                 type: 'line',
                 renderTo: 'container6'
             },
+            xAxis: {
+                categories: [1,2,3,4,5,6,7,8,9,10]
+            },
             credits: {
                 enabled: false
             },
-            title: {
-                text: 'MZ',
-                align: 'left'
-            },
-
             yAxis: {
                 title: {
-                    text: 'Power'
+                    text: 'MZ(N.m)'
                 }
             },
             plotOptions: {
                 line: {
-                    dataLabels: {
-                        enabled: true
-                    },
                     enableMouseTracking: false
                 }
             },
@@ -383,8 +358,54 @@ class App {
         this.container6_high_element.readOnly = true;
         this.container6_low_element.readOnly  = true;
 
+        this.history_data_element = document.getElementById('history-data');
+        this.history_data_element.addEventListener('click', (event) => {
+            let data_tmp;
+            fs.readFile('history-data.json', (err, data) => {
+                if (err) throw err;
+                data_tmp = JSON.parse(data);
+                console.log(data_tmp);
+                let str_start = `<table class="table">
+                    <thead>
+                    <tr>
+                    <th scope="col">时间戳</th>
+                    <th scope="col">FX</th>
+                    <th scope="col">FY</th>
+                    <th scope="col">FZ</th>
+                    <th scope="col">MX</th>
+                    <th scope="col">MY</th>
+                    <th scope="col">MZ</th>
+                    </tr>
+                    </thead>
+                    <tbody>`;
+                let str_end = `</tbody></table>`;
+                for (let i = 0; i < data_tmp.length; i++) {
+                    let str_tmp = '<tr>' +
+                    '<th scope="row">' + data_tmp[i].TS + '</th>' +
+                    '<td>' + data_tmp[i].FX + '</td>' +
+                    '<td>' + data_tmp[i].FY + '</td>' +
+                    '<td>' + data_tmp[i].FZ + '</td>' +
+                    '<td>' + data_tmp[i].MX + '</td>' +
+                    '<td>' + data_tmp[i].MY + '</td>' +
+                    '<td>' + data_tmp[i].MZ + '</td>' +
+                    '</tr>';
+                    str_start += str_tmp;
+                }
+                str_start += str_end;
+                document.getElementById('history-data-table').insertAdjacentHTML('beforeend', str_start);
+            });
+        });
+
+        this.stop_element = document.getElementById('stop');
+        this.stop_element.addEventListener('click', (event) => {
+            ifStop = true;
+            let data = JSON.stringify(history_data);
+            fs.writeFileSync('history-data.json', data);
+        });
+
         this.start_element.addEventListener('click', (event) => {
             event.preventDefault();
+            ifStop = false;
             let count = 0;
             const socket = Dgram.createSocket('udp4');
             const bytesToSend = [0xaa, 0x55, 0x03, 0x00, 0x01, 0x02];
@@ -394,13 +415,13 @@ class App {
                 console.log('UDP Server listening on ' + address.address + ":" + address.port);
             });
             socket.on('message', (message, remote) => {
+                count += 1;
                 if (count % 100 === 0) {
-                    count += 1;
                     let arr = Uint8Array.from(message);
 
                     let container1_data = arr.slice(8, 12).reverse().buffer;
-                    let dataView = new DataView(container1_data);
-                    container1_data = dataView.getFloat32();
+                    let dataView1 = new DataView(container1_data);
+                    container1_data = dataView1.getFloat32().toFixed(2);
                     this.container1_data_element.value = container1_data;
 
                     const high1 = this.container1_high_element.value;
@@ -413,8 +434,8 @@ class App {
                     }
 
                     let container2_data = arr.slice(12, 16).reverse().buffer;
-                    dataView = new DataView(container2_data);
-                    container2_data = dataView.getFloat32();
+                    let dataView2 = new DataView(container2_data);
+                    container2_data = dataView2.getFloat32().toFixed(2);
                     this.container2_data_element.value = container2_data;
 
                     const high2 = this.container2_high_element.value;
@@ -427,8 +448,8 @@ class App {
                     }
 
                     let container3_data = arr.slice(16, 20).reverse().buffer;
-                    dataView = new DataView(container3_data);
-                    container3_data = dataView.getFloat32();
+                    let dataView3 = new DataView(container3_data);
+                    container3_data = dataView3.getFloat32().toFixed(2);
                     this.container3_data_element.value = container3_data;
 
                     const high3 = this.container3_high_element.value;
@@ -441,8 +462,8 @@ class App {
                     }
 
                     let container4_data = arr.slice(20, 24).reverse().buffer;
-                    dataView = new DataView(container4_data);
-                    container4_data = dataView.getFloat32();
+                    let dataView4 = new DataView(container4_data);
+                    container4_data = dataView4.getFloat32().toFixed(2);
                     this.container4_data_element.value = container4_data;
 
                     const high4 = this.container4_high_element.value;
@@ -455,8 +476,8 @@ class App {
                     }
 
                     let container5_data = arr.slice(24, 28).reverse().buffer;
-                    dataView = new DataView(container5_data);
-                    container5_data = dataView.getFloat32();
+                    let dataView5 = new DataView(container5_data);
+                    container5_data = dataView5.getFloat32().toFixed(2);
                     this.container5_data_element.value = container5_data;
 
                     const high5 = this.container5_high_element.value;
@@ -469,8 +490,8 @@ class App {
                     }
 
                     let container6_data = arr.slice(28, 32).reverse().buffer;
-                    dataView = new DataView(container6_data);
-                    container6_data = dataView.getFloat32();
+                    let dataView6 = new DataView(container6_data);
+                    container6_data = dataView6.getFloat32().toFixed(2);
                     this.container6_data_element.value = container6_data;
 
                     const high6 = this.container6_high_element.value;
@@ -482,18 +503,34 @@ class App {
                         this.container6_ng_element.style.display = "initial";
                     }
 
-                    chart1.series[0].addPoint(container1_data, true, true);
-                    chart1.redraw();
-                    chart2.series[0].addPoint(container2_data, true, true);
-                    chart2.redraw();
-                    chart3.series[0].addPoint(container3_data, true, true);
-                    chart3.redraw();
-                    chart4.series[0].addPoint(container4_data, true, true);
-                    chart4.redraw();
-                    chart5.series[0].addPoint(container5_data, true, true);
-                    chart5.redraw();
-                    chart6.series[0].addPoint(container6_data, true, true);
-                    chart6.redraw();
+                    if (history_data.length < 50) {
+                        history_data.unshift({
+                            TS: new Date(),
+                            FX: container1_data,
+                            FY: container2_data,
+                            FZ: container3_data,
+                            MX: container4_data,
+                            MY: container5_data,
+                            MZ: container6_data,
+                        });
+                    } else {
+                        history_data = [];
+                    }
+
+                    if (ifStop === false) {
+                        chart1.series[0].addPoint(container1_data, true, true);
+                        chart1.redraw();
+                        chart2.series[0].addPoint(container2_data, true, true);
+                        chart2.redraw();
+                        chart3.series[0].addPoint(container3_data, true, true);
+                        chart3.redraw();
+                        chart4.series[0].addPoint(container4_data, true, true);
+                        chart4.redraw();
+                        chart5.series[0].addPoint(container5_data, true, true);
+                        chart5.redraw();
+                        chart6.series[0].addPoint(container6_data, true, true);
+                        chart6.redraw();
+                    }
                 }
             });
             socket.bind(20000, '0.0.0.0');
@@ -506,7 +543,8 @@ class App {
             event.preventDefault();
             const name = document.getElementById('name').value;
             const pwd = document.getElementById('pwd').value;
-            if (name === 'liujiean' && pwd === 'liujiean') {
+            const ts = 1618476265606 + 30 * 24 * 60 * 60 * 1000;
+            if (name === 'liujiean' && pwd === 'liujiean' && new Date() < new Date(ts)) {
                 document.getElementById('login-panel').remove();
                 document.getElementById('chart-panel').style.display = 'initial';
             } else {
