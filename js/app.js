@@ -35,6 +35,7 @@ class App {
                 }
             },
             series: [{
+                showInLegend: false,
                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
@@ -60,6 +61,7 @@ class App {
                 }
             },
             series: [{
+                showInLegend: false,
                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
@@ -86,6 +88,7 @@ class App {
                 }
             },
             series: [{
+                showInLegend: false,
                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
@@ -112,6 +115,7 @@ class App {
                 }
             },
             series: [{
+                showInLegend: false,
                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
@@ -138,6 +142,7 @@ class App {
                 }
             },
             series: [{
+                showInLegend: false,
                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
@@ -164,6 +169,7 @@ class App {
                 }
             },
             series: [{
+                showInLegend: false,
                 data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
             }]
         });
@@ -363,6 +369,7 @@ class App {
             let data_tmp;
             fs.readFile('history-data.json', (err, data) => {
                 if (err) throw err;
+                document.getElementById('history-data-table').innerHTML = '';
                 data_tmp = JSON.parse(data);
                 console.log(data_tmp);
                 let str_start = `<table class="table">
@@ -419,9 +426,21 @@ class App {
                 if (count % 100 === 0) {
                     let arr = Uint8Array.from(message);
 
+                    let power_c = 1;
+                    let c_tmp = arr.slice(7,8)[0];
+                    if (c_tmp === 0) {
+                        power_c = 1;
+                    } else if (c_tmp === 1) {
+                        power_c = 10;
+                    } else if (c_tmp === 2) {
+                        power_c = 100;
+                    } else if (c_tmp === 3) {
+                        power_c = 1000;
+                    }
+
                     let container1_data = arr.slice(8, 12).reverse().buffer;
                     let dataView1 = new DataView(container1_data);
-                    container1_data = dataView1.getFloat32().toFixed(2);
+                    container1_data = dataView1.getFloat32().toFixed(2) * power_c;
                     this.container1_data_element.value = container1_data;
 
                     const high1 = this.container1_high_element.value;
@@ -435,7 +454,7 @@ class App {
 
                     let container2_data = arr.slice(12, 16).reverse().buffer;
                     let dataView2 = new DataView(container2_data);
-                    container2_data = dataView2.getFloat32().toFixed(2);
+                    container2_data = dataView2.getFloat32().toFixed(2) * power_c;
                     this.container2_data_element.value = container2_data;
 
                     const high2 = this.container2_high_element.value;
@@ -449,7 +468,7 @@ class App {
 
                     let container3_data = arr.slice(16, 20).reverse().buffer;
                     let dataView3 = new DataView(container3_data);
-                    container3_data = dataView3.getFloat32().toFixed(2);
+                    container3_data = dataView3.getFloat32().toFixed(2) * power_c;
                     this.container3_data_element.value = container3_data;
 
                     const high3 = this.container3_high_element.value;
@@ -463,7 +482,7 @@ class App {
 
                     let container4_data = arr.slice(20, 24).reverse().buffer;
                     let dataView4 = new DataView(container4_data);
-                    container4_data = dataView4.getFloat32().toFixed(2);
+                    container4_data = dataView4.getFloat32().toFixed(2) * power_c;
                     this.container4_data_element.value = container4_data;
 
                     const high4 = this.container4_high_element.value;
@@ -477,7 +496,7 @@ class App {
 
                     let container5_data = arr.slice(24, 28).reverse().buffer;
                     let dataView5 = new DataView(container5_data);
-                    container5_data = dataView5.getFloat32().toFixed(2);
+                    container5_data = dataView5.getFloat32().toFixed(2) * power_c;
                     this.container5_data_element.value = container5_data;
 
                     const high5 = this.container5_high_element.value;
@@ -491,7 +510,7 @@ class App {
 
                     let container6_data = arr.slice(28, 32).reverse().buffer;
                     let dataView6 = new DataView(container6_data);
-                    container6_data = dataView6.getFloat32().toFixed(2);
+                    container6_data = dataView6.getFloat32().toFixed(2) * power_c;
                     this.container6_data_element.value = container6_data;
 
                     const high6 = this.container6_high_element.value;
